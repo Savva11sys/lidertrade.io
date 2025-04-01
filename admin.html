@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель - ЛидерТрейд</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 20px 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #1B5E20;
+        }
+
+        main {
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .admin-panel h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #1B5E20;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #A5D6A7;
+        }
+
+        .form-container {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .list-container {
+            margin-top: 30px;
+        }
+
+        .list-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e8f5e9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .delete-btn {
+            background-color: #d32f2f;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background-color: #ff5252;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="logo.png" alt="ЛидерТрейд">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог товаров</a></li>
+            <li><a href="admin.html">Админ панель</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="admin-panel">
+        <h1>Админ панель</h1>
+
+        <div class="admin-buttons">
+            <button onclick="toggleForm('add-product-form')">Добавить товар</button>
+        </div>
+
+        <!-- Уведомления -->
+        <div class="notifications-container">
+            <h2>Уведомления</h2>
+            <div id="notifications">Загрузка уведомлений...</div>
+        </div>
+
+        <!-- Заказы -->
+        <div class="orders-container">
+            <h2>Заказы</h2>
+            <div id="orders">Загрузка заказов...</div>
+        </div>
+
+        <div class="form-container" id="add-product-form" style="display: none;">
+            <h2>Добавить товар</h2>
+            <input type="text" id="product-name" placeholder="Название товара">
+            <input type="text" id="product-manufacturer" placeholder="Производитель">
+            <input type="number" id="product-price" placeholder="Цена">
+            <input type="text" id="product-color" placeholder="Цвет">
+            <input type="text" id="product-texture" placeholder="Текстура">
+            
+            <select id="product-category">
+                <option value="софит">Софит</option>
+                <option value="аксессуары">Аксессуары</option>
+                <option value="блок хаус">Блок хаус</option>
+                <option value="сайдинг">Сайдинг</option>
+                <option value="фасадные панели">Фасадные панели</option>
+            </select>
+            
+            <textarea id="product-description" placeholder="Описание товара"></textarea>
+            <button type="button" onclick="addProduct()">Добавить</button>
+        </div>
+        
+        <div class="list-container">
+            <h2>Список товаров</h2>
+            <div id="product-list">Загрузка...</div>
+        </div>
+    </div>
+</main>
+
+
+
+<script>
+    function loadProducts() {
+        fetch('backend.php?type=products')
+            .then(response => response.json())
+            .then(products => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+    
+                if (products.length === 0) {
+                    productList.innerHTML = '<p>Нет добавленных товаров.</p>';
+                    return;
+                }
+    
+                products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('item');
+                    productItem.innerHTML = `
+                        <p><strong>${product.name}</strong> (${product.manufacturer}) - ${product.price} руб.</p>
+                        <button class="delete-btn" onclick="deleteProduct(${product.id})">Удалить</button>
+                    `;
+                    productList.appendChild(productItem);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки товаров:', error));
+    }
+    
+    function addProduct() {
+        const formData = new FormData();
+        formData.append("type", "addProduct");
+        formData.append("name", document.getElementById("product-name").value);
+        formData.append("manufacturer", document.getElementById("product-manufacturer").value);
+        formData.append("price", document.getElementById("product-price").value);
+        formData.append("color", document.getElementById("product-color").value);
+        formData.append("texture", document.getElementById("product-texture").value);
+        formData.append("category", document.getElementById("product-category").value);
+        formData.append("description", document.getElementById("product-description").value);
+    
+        fetch('backend.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            alert(result.success || result.error);
+            loadProducts();
+        })
+        .catch(error => console.error('Ошибка добавления товара:', error));
+    }
+    
+    function deleteProduct(id) {
+        fetch(`backend.php?type=delete&id=${id}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.success || result.error);
+                loadProducts();
+            })
+            .catch(error => console.error('Ошибка удаления товара:', error));
+    }
+    
+    loadProducts();
+    </script>
+    
+
+<script>
+    function toggleForm(id) {
+        const form = document.getElementById(id);
+        form.style.display = form.style.display === "block" ? "none" : "block";
+    }
+
+    function addProduct() {
+        const formData = new FormData();
+        formData.append("name", document.getElementById("product-name").value);
+        formData.append("manufacturer", document.getElementById("product-manufacturer").value);
+        formData.append("price", document.getElementById("product-price").value);
+        formData.append("color", document.getElementById("product-color").value);
+        formData.append("texture", document.getElementById("product-texture").value);
+        formData.append("category", document.getElementById("product-category").value);
+        formData.append("description", document.getElementById("product-description").value);
+        formData.append("type", "addProduct");
+
+        fetch('backend.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            alert(result.success || result.error);
+            loadProducts(); 
+        })
+        .catch(error => console.error('Ошибка добавления товара:', error));
+    }
+
+    function loadProducts() {
+        fetch('backend.php?type=products')
+            .then(response => response.json())
+            .then(products => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+
+                if (products.length === 0) {
+                    productList.innerHTML = '<p>Нет добавленных товаров.</p>';
+                    return;
+                }
+
+                products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('item');
+                    productItem.innerHTML = `
+                        <p><strong>${product.name}</strong> (${product.manufacturer}) - ${product.price} руб.</p>
+                        <button class="delete-btn" onclick="deleteProduct(${product.id})">Удалить</button>
+                    `;
+                    productList.appendChild(productItem);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки товаров:', error));
+    }
+
+    function deleteProduct(id) {
+        fetch(`backend.php?type=delete&id=${id}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.success || result.error);
+                loadProducts();
+            })
+            .catch(error => console.error('Ошибка удаления товара:', error));
+    }
+
+    function loadNotifications() {
+        fetch('backend.php?type=notifications')
+            .then(response => response.json())
+            .then(data => {
+                const notificationContainer = document.getElementById('notifications');
+                notificationContainer.innerHTML = '';
+
+                if (data.length === 0) {
+                    notificationContainer.innerHTML = '<p>Нет новых уведомлений.</p>';
+                    return;
+                }
+
+                data.forEach(notif => {
+                    const notifItem = document.createElement('div');
+                    notifItem.classList.add('item');
+                    notifItem.innerHTML = `<p><strong>${notif.date}</strong>: ${notif.text}</p>`;
+                    notificationContainer.appendChild(notifItem);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки уведомлений:', error));
+    }
+
+    function loadOrders() {
+        fetch('backend.php?type=orders')
+            .then(response => response.json())
+            .then(data => {
+                const ordersContainer = document.getElementById('orders');
+                ordersContainer.innerHTML = '';
+
+                if (data.length === 0) {
+                    ordersContainer.innerHTML = '<p>Нет новых заказов.</p>';
+                    return;
+                }
+
+                data.forEach(order => {
+                    const orderItem = document.createElement('div');
+                    orderItem.classList.add('item');
+                    orderItem.innerHTML = `<p><strong>Заказ №${order.id}</strong> от ${order.date}: ${order.details}</p>`;
+                    ordersContainer.appendChild(orderItem);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки заказов:', error));
+    }
+
+    loadProducts();
+    loadNotifications();
+    loadOrders();
+</script>
+
+<footer>
+    <p>&copy; 2025 ЛидерТрейд. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

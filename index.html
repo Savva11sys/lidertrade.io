@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров - ЛидерТрейд</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            height: 100%;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 30px 80px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        main {
+            padding: 80px 20px;
+            background-color: #ffffff;
+            min-height: calc(100vh - 150px);
+        }
+
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        .catalog-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .catalog-item img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(27, 94, 32, 0.8);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .catalog-item:hover .overlay {
+            background: rgba(165, 214, 167, 1);
+            color: #1B5E20;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #ffffff;
+            color: #000000;
+            font-size: 18px;
+            margin-top: 60px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-link {
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #1B5E20;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            color: black;
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background-color: #1B5E20;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #A5D6A7;
+        }
+
+        .company-info {
+            background-color: #f9f9f9;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+            border-radius: 15px;
+        }
+
+        .company-info h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .news-and-promos {
+            padding: 60px 20px;
+            background-color: #f4f4f4;
+        }
+
+        .news-and-promos h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .news-item, .promo-item {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-item:hover, .promo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .news-item h3, .promo-item h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .news-item p, .promo-item p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 30px 80px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            font-size: 16px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .search-container input:focus {
+            width: 300px;
+            border-color: #1B5E20;
+        }
+
+        .search-container button {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1B5E20;
+        }
+
+        .search-container button:hover {
+            color: #A5D6A7;
+        }
+        
+        #map {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .catalog-item {
+            flex: 1 1 calc(33% - 20px);
+            max-width: 320px;
+            text-align: center;
+        }
+        .map-section {
+            margin-top: 50px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-section h2 {
+            font-size: 24px;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+        }
+
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 200px;
+            height: 200px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .logo-preloader {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 120px;
+            height: 120px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .logo-preloader {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+
+        .preloader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease-out;
+        }
+        .preloader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .product-of-the-day {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        .product-of-the-day img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .product-of-the-day h2 {
+            color: #4CAF50;
+        }
+        .buy-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+
+    </style>
+    <script>
+        window.onload = function() {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('fade-out');
+            }, 1000);
+        };
+    </script>
+</head>
+<body>
+    <header>
+
+        <div id="preloader">
+            <div class="loader">
+                <img src="logo.png" class="logo-preloader" alt="ЛидерТрейд">
+            </div>
+        </div>
+    
+
+        <div class="logo">
+            <img src="logo.png" alt="ЛидерТрейд">
+        </div>
+        <nav>
+            <ul>
+                
+                <li><a href="catalog.html">Каталог </a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="cart.html">Корзина</a></li>
+                <li><a href="login.html">Войти</a></li> <!-- Добавлен пункт "Войти" -->
+            </ul>
+        </nav>
+        <section>
+            <head>
+                <title>Строка поиска</title>
+            </head>
+            <Body>
+                <h1></h1>
+                <div class="search-container">
+                    <form action="/search" method="get">
+                        <input type="text" name="query" placeholder="Введите запрос..." required>
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+                
+            </Body>
+            </section>
+    </header>
+
+    <main>
+
+        <section class="product-of-the-day">
+            <h2>Товар дня</h2>
+            <img src="product.jpg" alt="Товар дня">
+            <p>Название товара</p>
+            <p><strong>Цена: 999 руб.</strong></p>
+            <a href="#" class="buy-button">Купить</a>
+        </section>
+
+       
+        <section class="catalog" id="catalog">
+            <div class="catalog-item" onclick="window.location.href='catalog.html'">
+                <img src="sofit.jpg" alt="Софит">
+                <div class="overlay">Софит</div>
+            </div>
+            <div class="catalog-item" onclick="window.location.href='catalog.html'">
+                <img src="axe.jpg" alt="Аксессуары">
+                <div class="overlay">Аксессуары</div>
+            </div>
+            <div class="catalog-item" onclick="window.location.href='catalog.html'">
+                <img src="blockhouse.jpg" alt="Блок-хаус">
+                <div class="overlay">Блок-хаус</div>
+            </div>
+            <div class="catalog-item" onclick="window.location.href='catalog.html'">
+                <img src="facade_panels.jpg" alt="Фасадные панели">
+                <div class="overlay">Фасадные панели</div>
+            </div>
+            <div class="catalog-item" onclick="window.location.href='catalog.html'">
+                <img src="siding.jpg" alt="Сайдинг">
+                <div class="overlay">Сайдинг</div>
+            </div>
+
+        <section class="company-info">
+            <h2>«Лидертрейд» — сайдинг и кровельные материалы от производителя</h2>
+            <p>Наша компания занимается розничной и оптовой поставкой кровельных материалов и сайдинга в Москве и Московской области. Мы также организовываем их поставку в любые уголки России.</p>
+            <h3>Выгоды от сотрудничества с интернет-магазином «Лидертрейд»</h3>
+            <ul>
+                <p>Высокое качество. Это сертифицированная продукция от производителя, соответствующая международным стандартам.</p>
+                <p>Большой выбор. Наш ассортимент позволяет купить недорого сайдинг и кровлю в Москве под любой стиль.</p>
+                <p>Доступная стоимость. На фасадные панели и кровельные материалы цены у нас более чем доступные. Мы не сотрудничаем с посредниками, что помогает экономить ваши деньги.</p>
+                <p>Оперативная доставка. Сайдинг, кровля и кровельные материалы доставляются удобным способом по всей России.</p>
+                <p>Бесплатные консультации. Сотрудники, работающие в центре кровельных материалов, знают о реализуемой продукции всё. Они предоставят исчерпывающие ответы на вопросы.</p>
+            </ul>
+        </section>
+
+
+        <section class="news-and-promos">
+            <h2>Новости и Акции</h2>
+            <div class="news-item">
+                <h3>Новая поставка кровельных материалов</h3>
+                <p>Только в этом месяце! Успейте заказать и получить скидку на сайдинг, кровлю и фасадные панели!</p>
+            </div>
+
+            <div class="promo-item">
+                <h3>Скидки на сайдинг и кровлю</h3>
+                <p>Получите скидку 15% на весь ассортимент сайдинга и кровельных материалов! Только до конца месяца.</p>
+            </div>
+
+            <div class="promo-item">
+                <h3>Скидки на сайдинг и кровлю</h3>
+                <p>Получите скидку 15% на весь ассортимент сайдинга и кровельных материалов! Только до конца месяца.</p>
+            </div>
+
+
+
+            <script>
+                // Улучшенный скрипт прелоадера
+                window.addEventListener('load', function() {
+                    const preloader = document.getElementById('preloader');
+                    
+                    // Минимальное время показа прелоадера - 1 секунда
+                    setTimeout(() => {
+                        preloader.style.opacity = '0';
+                        
+                        // Удаляем прелоадер после анимации
+                        setTimeout(() => {
+                            preloader.remove();
+                        }, 500);
+                    }, 1000);
+                });
+            </script>
+        
+        </section>
+
+        
+
+        
+    </main>
+    <section class="map-section">
+        <h2>Мы на карте</h2>
+        <div id="map"></div>
+    </section>
+</main>
+
+
+
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+<script>
+    ymaps.ready(init);
+    function init() {
+        var map = new ymaps.Map("map", {
+            center: [55.964970742134824, 37.84418757812879], // Координаты
+            zoom: 14
+        });
+
+        var placemark = new ymaps.Placemark([55.964970742134824, 37.84418757812879], {
+            balloonContent: "ЛидерТрейд - мы здесь!"
+        }, {
+            preset: "islands#greenDotIcon"
+        });
+
+        map.geoObjects.add(placemark);
+    }
+</script>
+
+<footer>
+    <p>&copy; 2025 ЛидерТрейд. Все права защищены.</p>
+    <p>Телефон: <a href="tel:+79001234567">+7 (900) 123-45-67</a></p>
+    <p>Email: <a href="mailto:info@lidertrade.ru">info@lidertrade.ru</a></p>
+</footer>
+
+<footer>
+    <a href="privacy.html" class="footer-link">Политика конфиденциальности</a>
+    <a href="terms.html" class="footer-link">Условия использования</a>
+</footer>
+
+</body>
+</html>

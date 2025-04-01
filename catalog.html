@@ -1,0 +1,253 @@
+<?php
+// Подключение к базе данных
+include('db.php');
+
+// Получаем параметры из запроса
+$color = isset($_GET['color']) ? $_GET['color'] : '';
+$texture = isset($_GET['texture']) ? $_GET['texture'] : '';
+$category = isset($_GET['category']) ? $_GET['category'] : '';
+$manufacturer = isset($_GET['manufacturer']) ? $_GET['manufacturer'] : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+
+// Формируем SQL запрос с фильтрами
+$query = "SELECT * FROM products WHERE 1";
+
+if ($color) {
+    $query .= " AND color = '$color'";
+}
+if ($texture) {
+    $query .= " AND texture = '$texture'";
+}
+if ($category) {
+    $query .= " AND category = '$category'";
+}
+if ($manufacturer) {
+    $query .= " AND manufacturer = '$manufacturer'";
+}
+
+if ($sort == 'По цене') {
+    $query .= " ORDER BY price ASC";
+} else {
+    $query .= " ORDER BY popularity DESC";
+}
+
+// Выполняем запрос
+$result = mysqli_query($db, $query);
+
+// Получаем данные о товарах
+$products = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $products[] = $row;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров - ЛидерТрейд</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 30px 80px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1B5E20;
+        }
+
+        main {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .filters {
+            width: 250px;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 8px;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, .filter-button {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .catalog {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-left: 20px;
+        }
+
+        .catalog-item {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        .catalog-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .catalog-item h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .catalog-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="ЛидерТрейд">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.php">Главная</a></li>
+                <li><a href="catalog.php">Каталог товаров</a></li>
+                <li><a href="contacts.php">Контакты</a></li>
+                <li><a href="login.php">Войти</a></li>
+                <li><a href="cart.php">Корзина</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <aside class="filters">
+            <form action="index.php" method="get">
+                <div class="filter-group">
+                    <label for="color">Цвет</label>
+                    <select id="color" name="color">
+                        <option value="">Все</option>
+                        <option value="Белый">Белый</option>
+                        <option value="Коричневый">Коричневый</option>
+                        <option value="Графит">Графит</option>
+                        <option value="Дуб">Дуб</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="texture">Текстура</label>
+                    <select id="texture" name="texture">
+                        <option value="">Все</option>
+                        <option value="Под дерево">Под дерево</option>
+                        <option value="Под бревно">Под бревно</option>
+                        <option value="Под камень">Под камень</option>
+                        <option value="Под кирпич">Под кирпич</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="category">Категория</label>
+                    <select id="category" name="category">
+                        <option value="">Все</option>
+                        <option value="Софит">Софит</option>
+                        <option value="Аксессуары">Аксессуары</option>
+                        <option value="Сайдинг">Сайдинг</option>
+                        <option value="Фасадные панели">Фасадные панели</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="manufacturer">Производитель</label>
+                    <select id="manufacturer" name="manufacturer">
+                        <option value="">Все</option>
+                        <option value="Doke">Doke</option>
+                        <option value="ELLKA">ELLKA</option>
+                        <option value="Альта-профиль">Альта-профиль</option>
+                        <option value="Grand Line">Grand Line</option>
+                        <option value="Ю-пласт">Ю-пласт</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort">Сортировать по</label>
+                    <select id="sort" name="sort">
+                        <option value="По популярности">По популярности</option>
+                        <option value="По цене">По цене</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <button type="submit" class="filter-button">Применить фильтры</button>
+                </div>
+            </form>
+        </aside>
+
+        <section class="catalog">
+            <?php foreach ($products as $product): ?>
+                <div class="catalog-item">
+                    <img src="<?= $product['image'] ?>" alt="<?= $product['name'] ?>">
+                    <h3><?= $product['name'] ?></h3>
+                    <p>Цвет: <?= $product['color'] ?></p>
+                    <p>Цена: <?= $product['price'] ?> руб.</p>
+                </div>
+            <?php endforeach; ?>
+        </section>
+    </main>
+</body>
+</html>

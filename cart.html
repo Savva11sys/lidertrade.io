@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - ЛидерТрейд</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 20px 40px;
+            color: black; /* Изменено на черный */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo img {
+            height: 60px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            padding: 0;
+            margin: 0;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: black; /* Изменено на черный */
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: #A5D6A7;
+        }
+
+        .cart-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-section h1 {
+            font-size: 36px;
+            color: black; /* Изменено на черный */
+            margin-bottom: 20px;
+        }
+
+        .cart-items {
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-details {
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+
+        .cart-details h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .cart-details p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity button {
+            padding: 10px;
+            font-size: 18px;
+            background-color: #A5D6A7;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quantity button:hover {
+            background-color: #1B5E20;
+            color: white;
+        }
+
+        .btn-remove {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-remove:hover {
+            background-color: #d32f2f;
+        }
+
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 22px;
+            margin-top: 40px;
+        }
+
+        .cart-summary .total-price {
+            color: black; /* Изменено на черный */
+            font-weight: bold;
+        }
+
+        .btn-order {
+            background-color: white;
+            color: black; /* Изменено на черный */
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-order:hover {
+            background-color: #A5D6A7;
+        }
+
+        .map-section {
+            margin-top: 50px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: black; /* Изменено на черный */
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background-color: white;
+            color: black; /* Изменено на черный */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #A5D6A7;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="logo.png" alt="ЛидерТрейд">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог товаров</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="cart.html">Корзина</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="cart-section">
+        <h1>Ваша корзина</h1>
+
+        <div class="cart-items">
+            <!-- Удален товар 1 -->
+        </div>
+
+        <div class="cart-summary">
+            <h2>Итого: <span class="total-price">0 ₽</span></h2>
+            <button class="btn-order" onclick="openOrderModal()">Оформить заказ</button>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <h2>Выберите адрес доставки</h2>
+        <div id="map"></div>
+    </section>
+</main>
+
+<div id="order-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeOrderModal()">&times;</span>
+        <h2>Оформление заказа</h2>
+        <form id="order-form">
+            <label>Фамилия и имя:</label>
+            <input type="text" id="full-name" required>
+
+            <label>Email:</label>
+            <input type="email" id="email" required>
+
+            <label>Адрес доставки:</label>
+            <input type="text" id="address" required>
+
+            <label>Способ оплаты:</label>
+            <select id="payment-method" required>
+                <option value="cash">Наличные</option>
+                <option value="card">Карта</option>
+            </select>
+
+            <button type="submit" class="btn-confirm">Подтвердить заказ</button>
+        </form>
+
+        <div class="loader"></div>
+    </div>
+</div>
+
+<footer>
+    <a href="privacy.html" class="footer-link">Политика конфиденциальности</a>
+    <a href="terms.html" class="footer-link">Условия использования</a>
+</footer>
+
+<script>
+    ymaps.ready(init);
+    function init() {
+        var map = new ymaps.Map("map", {
+            center: [55.751574, 37.573856],
+            zoom: 10
+        });
+        map.controls.add('zoomControl');
+        map.controls.add('searchControl');
+    }
+
+    function openOrderModal() {
+        document.getElementById("order-modal").style.display = "block";
+    }
+
+    function closeOrderModal() {
+        document.getElementById("order-modal").style.display = "none";
+    }
+
+    document.getElementById("order-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let button = document.querySelector(".btn-confirm");
+        let loader = document.querySelector(".loader");
+
+        button.disabled = true;
+        button.innerText = "Обрабатываем...";
+        loader.style.display = "block";
+
+        setTimeout(() => {
+            loader.style.display = "none";
+            button.innerText = "Подтвердить заказ";
+            button.disabled = false;
+            alert("✅ Ваш заказ успешно оформлен!");
+            closeOrderModal();
+        }, 3000);
+    });
+</script>
+
+</body>
+</html>
