@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "Ноутбук ASUS",
+        "price": 75000,
+        "description": "Мощный игровой ноутбук",
+        "image": "images/asus.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Смартфон Samsung",
+        "price": 50000,
+        "description": "Флагманский смартфон с хорошей камерой",
+        "image": "images/samsung.jpg"
+    }
+]
