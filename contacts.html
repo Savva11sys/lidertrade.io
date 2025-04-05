@@ -164,6 +164,198 @@
         .footer-link:hover {
             color: #A5D6A7;
         }
+
+        font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo img {
+            height: 50px;
+            max-width: 100%;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        header nav a:hover {
+            color: #A5D6A7;
+        }
+
+        .contact-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section h1 {
+            font-size: 28px;
+            color: black;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-info {
+            order: 2;
+        }
+
+        .contact-info h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .contact-form {
+            order: 1;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .contact-form h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .contact-form label {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .map-section {
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #map {
+            height: 300px;
+            border-radius: 8px;
+        }
+
+        footer {
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-link {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        /* Медиазапросы для планшетов */
+        @media (min-width: 768px) {
+            .contact-container {
+                flex-direction: row;
+                gap: 40px;
+            }
+
+            .contact-info {
+                flex: 1;
+                order: 1;
+            }
+
+            .contact-form {
+                flex: 1;
+                order: 2;
+                padding: 20px;
+            }
+
+            .contact-section h1 {
+                font-size: 32px;
+                text-align: left;
+            }
+
+            #map {
+                height: 400px;
+            }
+        }
+
+        /* Медиазапросы для десктопов */
+        @media (min-width: 1024px) {
+            header {
+                padding: 20px 40px;
+            }
+
+            header .logo img {
+                height: 60px;
+            }
+
+            .contact-section {
+                padding: 30px;
+            }
+        }
+
+        /* Оптимизация для touch-устройств */
+        button, input, textarea {
+            touch-action: manipulation;
+        }
+
+        input, textarea, button {
+            min-height: 44px;
+        }
     </style>
 </head>
 <body>
