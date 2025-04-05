@@ -13,6 +13,7 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            min-width: 320px;
         }
 
         header {
@@ -20,29 +21,33 @@
             justify-content: space-between;
             align-items: center;
             background-color: white;
-            padding: 20px 40px;
-            color: black; /* Изменено на черный */
+            padding: 15px 20px;
+            color: black;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
         }
 
         header .logo img {
-            height: 60px;
+            height: 50px;
+            max-width: 100%;
         }
 
         header nav ul {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 15px;
             padding: 0;
             margin: 0;
+            flex-wrap: wrap;
         }
 
         header nav a {
             text-decoration: none;
-            color: black; /* Изменено на черный */
+            color: black;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             transition: color 0.3s ease;
+            white-space: nowrap;
         }
 
         header nav a:hover {
@@ -51,64 +56,79 @@
 
         .cart-section {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 20px auto;
             background-color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .cart-section h1 {
-            font-size: 36px;
-            color: black; /* Изменено на черный */
-            margin-bottom: 20px;
+            font-size: 28px;
+            color: black;
+            margin-bottom: 15px;
         }
 
         .cart-items {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .cart-item {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
+            flex-direction: column;
+            padding: 15px;
             border-bottom: 1px solid #ddd;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .cart-item-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
         }
 
         .cart-item img {
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
+            margin-right: 15px;
         }
 
         .cart-details {
             flex-grow: 1;
-            padding-left: 20px;
         }
 
         .cart-details h2 {
-            font-size: 22px;
+            font-size: 18px;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .cart-details p {
-            font-size: 18px;
+            font-size: 16px;
             color: #666;
+            margin: 5px 0;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
         }
 
         .quantity {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .quantity button {
-            padding: 10px;
-            font-size: 18px;
+            padding: 8px 12px;
+            font-size: 16px;
             background-color: #A5D6A7;
             border: none;
             border-radius: 5px;
@@ -124,11 +144,12 @@
         .btn-remove {
             background-color: #f44336;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 14px;
         }
 
         .btn-remove:hover {
@@ -137,50 +158,54 @@
 
         .cart-summary {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 22px;
-            margin-top: 40px;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 18px;
+            margin-top: 30px;
         }
 
         .cart-summary .total-price {
-            color: black; /* Изменено на черный */
+            color: black;
             font-weight: bold;
+            margin-bottom: 15px;
         }
 
         .btn-order {
             background-color: white;
-            color: black; /* Изменено на черный */
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
+            color: black;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: 2px solid #A5D6A7;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
         }
 
         .btn-order:hover {
             background-color: #A5D6A7;
+            color: white;
         }
 
         .map-section {
-            margin-top: 50px;
+            margin-top: 30px;
             background-color: white;
-            padding: 40px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .map-section h2 {
-            font-size: 24px;
+            font-size: 20px;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         #map {
             width: 100%;
-            height: 400px;
-            border-radius: 10px;
+            height: 300px;
+            border-radius: 8px;
         }
 
         /* Модальное окно */
@@ -194,61 +219,170 @@
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
+            z-index: 1000;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         .modal-content {
             background-color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
-            width: 400px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         .modal-content h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: black; /* Изменено на черный */
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: black;
         }
 
         .modal-content label {
             display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
+            margin-bottom: 8px;
+            font-size: 16px;
             color: #333;
         }
 
         .modal-content input, .modal-content select {
             width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 15px;
+            margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            box-sizing: border-box;
         }
 
         .modal-content button {
             width: 100%;
-            padding: 15px;
-            font-size: 18px;
+            padding: 12px;
+            font-size: 16px;
             background-color: white;
-            color: black; /* Изменено на черный */
-            border: none;
+            color: black;
+            border: 2px solid #A5D6A7;
             border-radius: 5px;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         .modal-content button:hover {
             background-color: #A5D6A7;
+            color: white;
         }
 
         .close {
             position: absolute;
             top: 10px;
-            right: 10px;
-            font-size: 30px;
+            right: 15px;
+            font-size: 28px;
             cursor: pointer;
+            color: #333;
         }
 
+        footer {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-link:hover {
+            color: #A5D6A7;
+        }
+
+        /* Адаптация для планшетов */
+        @media (min-width: 600px) {
+            header {
+                padding: 20px 30px;
+            }
+            
+            header nav ul {
+                gap: 20px;
+            }
+            
+            .cart-item {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .cart-item-controls {
+                width: auto;
+                margin-top: 0;
+                justify-content: flex-end;
+                gap: 15px;
+            }
+            
+            .cart-summary {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .cart-summary .total-price {
+                margin-bottom: 0;
+            }
+        }
+
+        /* Адаптация для десктопов */
+        @media (min-width: 900px) {
+            .cart-section {
+                padding: 30px;
+            }
+            
+            .cart-item img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .cart-details h2 {
+                font-size: 20px;
+            }
+            
+            .btn-order {
+                width: auto;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Лоадер */
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #A5D6A7;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 15px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -273,6 +407,9 @@
 
         <div class="cart-items">
             <!-- Удален товар 1 -->
+            <div class="empty-cart-message">
+                <p>Ваша корзина пуста</p>
+            </div>
         </div>
 
         <div class="cart-summary">
@@ -292,25 +429,28 @@
         <span class="close" onclick="closeOrderModal()">&times;</span>
         <h2>Оформление заказа</h2>
         <form id="order-form">
-            <label>Фамилия и имя:</label>
+            <label for="full-name">Фамилия и имя:</label>
             <input type="text" id="full-name" required>
 
-            <label>Email:</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" required>
 
-            <label>Адрес доставки:</label>
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="address">Адрес доставки:</label>
             <input type="text" id="address" required>
 
-            <label>Способ оплаты:</label>
+            <label for="payment-method">Способ оплаты:</label>
             <select id="payment-method" required>
-                <option value="cash">Наличные</option>
-                <option value="card">Карта</option>
+                <option value="" disabled selected>Выберите способ оплаты</option>
+                <option value="cash">Наличные при получении</option>
+                <option value="card">Онлайн оплата картой</option>
             </select>
 
             <button type="submit" class="btn-confirm">Подтвердить заказ</button>
+            <div class="loader"></div>
         </form>
-
-        <div class="loader"></div>
     </div>
 </div>
 
@@ -328,14 +468,28 @@
         });
         map.controls.add('zoomControl');
         map.controls.add('searchControl');
+        
+        // Адаптация карты при изменении размера экрана
+        window.addEventListener('resize', function() {
+            map.container.fitToViewport();
+        });
     }
 
     function openOrderModal() {
-        document.getElementById("order-modal").style.display = "block";
+        document.getElementById("order-modal").style.display = "flex";
+        document.body.style.overflow = "hidden"; // Блокируем прокрутку страницы
     }
 
     function closeOrderModal() {
         document.getElementById("order-modal").style.display = "none";
+        document.body.style.overflow = "auto"; // Восстанавливаем прокрутку
+    }
+
+    // Закрытие модального окна при клике вне его
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("order-modal")) {
+            closeOrderModal();
+        }
     }
 
     document.getElementById("order-form").addEventListener("submit", function(event) {
@@ -348,13 +502,40 @@
         button.innerText = "Обрабатываем...";
         loader.style.display = "block";
 
+        // Имитация отправки данных
         setTimeout(() => {
             loader.style.display = "none";
             button.innerText = "Подтвердить заказ";
             button.disabled = false;
+            
+            // Показываем сообщение об успехе
             alert("✅ Ваш заказ успешно оформлен!");
+            
+            // Закрываем модальное окно
             closeOrderModal();
-        }, 3000);
+            
+            // Можно добавить сброс формы
+            this.reset();
+        }, 2000);
+    });
+
+    // Адаптация для мобильных устройств - предотвращаем масштабирование при вводе
+    document.addEventListener('DOMContentLoaded', function() {
+        let viewport = document.querySelector('meta[name="viewport"]');
+        
+        function preventZoom() {
+            viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+        }
+        
+        function allowZoom() {
+            viewport.content = "width=device-width, initial-scale=1.0";
+        }
+        
+        // При фокусе на полях ввода
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            el.addEventListener('focus', preventZoom);
+            el.addEventListener('blur', allowZoom);
+        });
     });
 </script>
 
