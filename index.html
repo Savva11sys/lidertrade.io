@@ -309,8 +309,17 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .catalog-item {
+            flex: 1 1 calc(50% - 40px); /* Два элемента в ряду */
+            max-width: 480px; /* Ограничиваем максимальную ширину элемента */
+            text-align: center;
+        }
         .map-section {
             margin-top: 50px;
             background-color: white;
@@ -550,6 +559,7 @@
                 <img src="sofit.jpg" alt="Софит">
                 <div class="overlay">Софит</div>
             </div>
+            
            
             <div class="catalog-item" onclick="window.location.href='catalog.html'">
                 <img src="blockhouse.jpg" alt="Блок-хаус">
