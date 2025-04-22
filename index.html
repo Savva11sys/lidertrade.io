@@ -73,24 +73,23 @@
             min-height: calc(100vh - 150px);
         }
 
+       
         .catalog {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 60px;
-        }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
 
-        .catalog-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
+.catalog-item {
+    flex: 1 1 calc(33% - 40px); /* Убедитесь, что элементы равномерно распределены */
+    max-width: 320px;
+    text-align: center;
+}
+
 
         .catalog-item img {
             width: 100%;
