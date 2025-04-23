@@ -312,12 +312,17 @@
           <div class="product-info">
             <h3 class="product-title">${p.title}</h3>
             <p class="product-description">${p.description}</p>
-            <p class="product-price">Цена: <span>${p.price} ₽</span> <button class="add-to-cart">Звонок</button></p>
+            <p class="product-price">Цена: <span>${p.price} ₽</span> <button class="add-to-cart">В корзину</button></p>
+
             
           </div>`;
-        card.querySelector(".add-to-cart").addEventListener("click", () => {
-          modal.style.display = "flex";
-        });
+          card.querySelector(".add-to-cart").addEventListener("click", () => {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(p);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Товар добавлен в корзину!");
+});
+
         catalog.appendChild(card);
       });
     }
@@ -357,8 +362,11 @@
     }
 
     renderProducts(products);
+
+    
+
+
   </script>
 </body>
 </html>
-
 
