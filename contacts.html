@@ -399,23 +399,25 @@
                 <p><strong>📍 Адрес:</strong> Москва, ул. Примерная, д. 10</p>
                 <p><strong>📞 Телефон:</strong> <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
                 <p><strong>✉️ Email:</strong> <a href="mailto:info@lidertrade.ru">info@lidertrade.ru</a></p>
-                <p><strong>🕒 Часы работы:</strong> Пн-Пт: 9:00 - 19:00</p>
+                <p><strong>🕒 Часы работы:</strong> Пн-Пт: 9:00 - 18:00</p>
             </div>
 
             <div class="contact-form">
                 <h2>Форма обратной связи</h2>
+                
                 <form id="contact-form">
-                    <label>Ваше имя:</label>
-                    <input type="text" required>
+    <label>Ваше имя:</label>
+    <input type="text" name="name" required>
 
-                    <label>Email:</label>
-                    <input type="email" required>
+    <label>Email:</label>
+    <input type="email" name="email" required>
 
-                    <label>Сообщение:</label>
-                    <textarea required></textarea>
+    <label>Сообщение:</label>
+    <textarea name="message" required></textarea>
 
-                    <button type="submit" class="btn-send">Отправить</button>
-                </form>
+    <button type="submit">Отправить</button>
+</form>
+
             </div>
         </div>
     </section>
@@ -458,28 +460,14 @@
     });
 </script>
 
-  <!-- HTML Форма -->
-<form id="contact-form">
-    <label>Ваше имя:</label>
-    <input type="text" name="name" required>
-
-    <label>Email:</label>
-    <input type="email" name="email" required>
-
-    <label>Сообщение:</label>
-    <textarea name="message" required></textarea>
-
-    <button type="submit">Отправить</button>
-</form>
-
-<!-- Скрипт отправки в Telegram -->
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const name = this.name.value;
-    const email = this.email.value;
-    const message = this.message.value;
+    const formData = new FormData(this);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
 
     const telegramMessage = `
 📝 Новая заявка с сайта:
@@ -488,8 +476,8 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 💬 Сообщение: ${message}
     `;
 
-    const botToken = "8022781969:AAEuIYt1zWuVZ9OzdqyOJYjiSiU93UXPSm8"; // ЗАМЕНИ НА СВОЙ ТОКЕН
-    const chatId = "582177712"; // ЗАМЕНИ НА СВОЙ CHAT ID
+    const botToken = "8022781969:AAEuIYt1zWuVZ9OzdqyOJYjiSiU93UXPSm8";
+    const chatId = "582177712";
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
     fetch(url, {
@@ -517,6 +505,7 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     });
 });
 </script>
+
 
 
 </body>
