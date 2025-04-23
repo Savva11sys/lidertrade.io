@@ -399,7 +399,7 @@
                 <p><strong>📍 Адрес:</strong> Москва, ул. Примерная, д. 10</p>
                 <p><strong>📞 Телефон:</strong> <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
                 <p><strong>✉️ Email:</strong> <a href="mailto:info@lidertrade.ru">info@lidertrade.ru</a></p>
-                <p><strong>🕒 Часы работы:</strong> Пн-Пт: 9:00 - 18:00</p>
+                <p><strong>🕒 Часы работы:</strong> Пн-Пт: 9:00 - 19:00</p>
             </div>
 
             <div class="contact-form">
@@ -469,6 +469,10 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     const email = formData.get("email");
     const message = formData.get("message");
 
+    console.log("Имя:", name);
+    console.log("Email:", email);
+    console.log("Сообщение:", message);
+
     const telegramMessage = `
 📝 Новая заявка с сайта:
 👤 Имя: ${name}
@@ -505,7 +509,6 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     });
 });
 </script>
-
 
 
 </body>
