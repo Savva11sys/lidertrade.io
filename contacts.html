@@ -457,6 +457,50 @@
         this.reset();
     });
 </script>
+<script>
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.querySelector('input[type="text"]').value;
+        const email = document.querySelector('input[type="email"]').value;
+        const message = document.querySelector('textarea').value;
+
+        const telegramMessage = `
+📝 Новая заявка с сайта:
+👤 Имя: ${name}
+📧 Email: ${email}
+💬 Сообщение: ${message}
+        `;
+
+        const botToken = "8022781969:AAEuIYt1zWuVZ9OzdqyOJYjiSiU93UXPSm8";
+        const chatId = "582177712";
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: telegramMessage,
+                parse_mode: "Markdown"
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("✅ Ваше сообщение отправлено в Telegram!");
+                document.getElementById("contact-form").reset();
+            } else {
+                alert("❌ Ошибка при отправке сообщения.");
+            }
+        })
+        .catch(error => {
+            console.error("Ошибка:", error);
+            alert("⚠️ Ошибка сети. Попробуйте позже.");
+        });
+    });
+</script>
 
 </body>
 </html>
