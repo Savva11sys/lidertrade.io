@@ -133,61 +133,70 @@
     </nav>
   </header>
 
-  <main>
-    <aside class="filters">
-      <form id="filterForm">
-        <div class="filter-group">
-          <label for="search">Поиск</label>
-          <input type="text" id="search" placeholder="Введите название..." />
-        </div>
-        <div class="filter-group">
-          <label for="color">Цвет</label>
-          <select id="color">
-            <option value="">Все</option>
-            <option value="Белый">Белый</option>
-            <option value="Коричневый">Коричневый</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="texture">Текстура</label>
-          <select id="texture">
-            <option value="">Все</option>
-            <option value="Под дерево">Под дерево</option>
-            <option value="Под камень">Под камень</option>
-               <option value="Под Мужскую ЕЛЬ">Под Мужскую ЕЛЬ </option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="category">Категория</label>
-          <select id="category">
-            <option value="">Все</option>
-            <option value="Сайдинг">Сайдинг</option>
-            <option value="Фасадные панели">Фасадные панели</option>
-            <option value="Мужская ЕЛЬ">Мужская ЕЛЬ</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="manufacturer">Производитель</label>
-          <select id="manufacturer">
-            <option value="">Все</option>
-            <option value="Doke">Doke</option>
-            <option value="ELLKA">ELLKA</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="sort">Сортировка</label>
-          <select id="sort">
-            <option value="">По популярности</option>
-            <option value="price">По цене</option>
-               <option value="">По брутальности ЕЛИ</option>
-          </select>
-        </div>
+<main>
+  <aside class="filters">
+    <form id="filterForm">
+      <div class="filter-group">
+        <label for="search">Поиск</label>
+        <input type="text" id="search" placeholder="Введите название..." />
+      </div>
+      <div class="filter-group">
+        <label for="color">Цвет</label>
+        <select id="color">
+          <option value="">Все</option>
+          <option value="Белый">Белый</option>
+          <option value="Коричневый">Коричневый</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="texture">Текстура</label>
+        <select id="texture">
+          <option value="">Все</option>
+          <option value="Под дерево">Под дерево</option>
+          <option value="Под камень">Под камень</option>
+          <option value="Под Мужскую ЕЛЬ">Под Мужскую ЕЛЬ</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="category">Категория</label>
+        <select id="category">
+          <option value="">Все</option>
+          <option value="Сайдинг">Сайдинг</option>
+          <option value="Фасадные панели">Фасадные панели</option>
+          <option value="Мужская ЕЛЬ">Мужская ЕЛЬ</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="manufacturer">Производитель</label>
+        <select id="manufacturer">
+          <option value="">Все</option>
+          <option value="Doke">Doke</option>
+          <option value="ELLKA">ELLKA</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="sort">Сортировка</label>
+        <select id="sort">
+          <option value="">По популярности</option>
+          <option value="price">По цене</option>
+          <option value="">По брутальности ЕЛИ</option>
+        </select>
+      </div>
+      <div class="filter-group">
         <button type="submit" class="filter-button">Применить</button>
-      </form>
-    </aside>
+        <button type="button" class="reset-button" onclick="resetFilters()">Сбросить</button>
+      </div>
+    </form>
+  </aside>
+</main>
 
-    <div class="catalog" id="productCatalog"></div>
-  </main>
+<script>
+  function resetFilters() {
+    const form = document.getElementById('filterForm');
+    form.reset(); // Сброс всех полей формы
+  }
+</script>
+
 
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -207,7 +216,7 @@
         price: 255 ,
         color: "Серый",
         texture: "Под Мужскую ЕЛЬ",
-        category: "Мужская ЕЛЬ",
+        category: "Сайдинг",
         manufacturer: "ELLKA",
         image: "images/photo_5208802329770454586_y.jpg"
       },
