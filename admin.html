@@ -282,7 +282,8 @@
     
 
 <script>
-    function saveDayProduct() {
+    <script>
+function saveDayProduct() {
     const dayProduct = {
         title: document.getElementById("day-title").value,
         description: document.getElementById("day-description").value,
@@ -290,9 +291,27 @@
         image: document.getElementById("day-image").value
     };
 
-    localStorage.setItem("dayProduct", JSON.stringify(dayProduct));
-    alert("Товар дня обновлён!");
+    fetch("backend.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            type: "saveDayProduct",
+            product: dayProduct
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.success || data.error);
+    })
+    .catch(err => {
+        console.error("Ошибка сохранения товара дня:", err);
+        alert("Не удалось сохранить товар дня");
+    });
 }
+</script>
+
 
 </script>
 <script>
