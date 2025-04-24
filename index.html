@@ -543,16 +543,17 @@
 
     <main>
 
-        <div class="product-of-the-day">
-            <img src="product.jpg" alt="Товар дня" class="product-image">
+        <div class="product-of-the-day" id="day-product-container">
+            <h2>Товар дня</h2>
+            <img id="day-product-image" src="" alt="Товар дня" class="product-image">
             <div class="product-details">
-                <h2>Товар дня</h2>
-                <p class="product-name">Сайдинг VOX</p>
-                <p class="product-description">Высококачественный сайдинг для наружной отделки.</p>
-                <p class="product-price">Цена: 450 руб/м²</p>
-                <button class="buy-button" onclick="openModal('Сайдинг VOX')">Добавить в корзину</button>
+                <p id="day-product-title" class="product-name"></p>
+                <p id="day-product-description" class="product-description"></p>
+                <p id="day-product-price" class="product-price"></p>
+                <button class="buy-button" onclick="addDayProductToCart()">Добавить в корзину</button>
             </div>
         </div>
+        
         
 
        
@@ -709,3 +710,31 @@
         document.getElementById("modal").style.display = "none";
     }
 </script>
+
+<script>
+    function loadDayProduct() {
+        const product = JSON.parse(localStorage.getItem("dayProduct"));
+        if (!product) return;
+
+        document.getElementById("day-product-image").src = product.image;
+        document.getElementById("day-product-title").textContent = product.title;
+        document.getElementById("day-product-description").textContent = product.description;
+        document.getElementById("day-product-price").textContent = "Цена: " + product.price + " руб/м²";
+    }
+
+    function addDayProductToCart() {
+        const product = JSON.parse(localStorage.getItem("dayProduct"));
+        if (!product) return;
+
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        openModal(product.title);
+    }
+
+    document.addEventListener("DOMContentLoaded", loadDayProduct);
+</script>
+
+
+</body>
+</html>
