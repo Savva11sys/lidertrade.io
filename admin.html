@@ -156,6 +156,7 @@
 
         <div class="admin-buttons">
             <button onclick="toggleForm('add-product-form')">Добавить товар</button>
+            <button onclick="toggleForm('day-product-form')">Редактировать товар дня</button>
         </div>
 
         <!-- Уведомления -->
@@ -186,6 +187,7 @@
                 <option value="фасадные панели">Фасадные панели</option>
             </select>
             
+            
             <textarea id="product-description" placeholder="Описание товара"></textarea>
             <button type="button" onclick="addProduct()">Добавить</button>
         </div>
@@ -195,6 +197,18 @@
             <div id="product-list">Загрузка...</div>
         </div>
     </div>
+
+    <div class="form-container" id="day-product-form" style="display: none;">
+        <h2>Редактировать товар дня</h2>
+        <input type="text" id="day-title" placeholder="Название товара">
+        <input type="text" id="day-description" placeholder="Описание">
+        <input type="number" id="day-price" placeholder="Цена (руб)">
+        <input type="text" id="day-image" placeholder="URL изображения (например: images/siding-product.jpg)">
+        <button onclick="saveDayProduct()">Сохранить товар дня</button>
+    </div>
+    
+    
+
 </main>
 
 
@@ -236,6 +250,11 @@
         formData.append("category", document.getElementById("product-category").value);
         formData.append("description", document.getElementById("product-description").value);
     
+        
+        
+
+
+
         fetch('backend.php', {
             method: 'POST',
             body: formData
@@ -263,117 +282,26 @@
     
 
 <script>
+    function saveDayProduct() {
+    const dayProduct = {
+        title: document.getElementById("day-title").value,
+        description: document.getElementById("day-description").value,
+        price: parseFloat(document.getElementById("day-price").value),
+        image: document.getElementById("day-image").value
+    };
+
+    localStorage.setItem("dayProduct", JSON.stringify(dayProduct));
+    alert("Товар дня обновлён!");
+}
+
+</script>
+<script>
     function toggleForm(id) {
         const form = document.getElementById(id);
-        form.style.display = form.style.display === "block" ? "none" : "block";
+        form.style.display = (form.style.display === "block") ? "none" : "block";
     }
-
-    function addProduct() {
-        const formData = new FormData();
-        formData.append("name", document.getElementById("product-name").value);
-        formData.append("manufacturer", document.getElementById("product-manufacturer").value);
-        formData.append("price", document.getElementById("product-price").value);
-        formData.append("color", document.getElementById("product-color").value);
-        formData.append("texture", document.getElementById("product-texture").value);
-        formData.append("category", document.getElementById("product-category").value);
-        formData.append("description", document.getElementById("product-description").value);
-        formData.append("type", "addProduct");
-
-        fetch('backend.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(result => {
-            alert(result.success || result.error);
-            loadProducts(); 
-        })
-        .catch(error => console.error('Ошибка добавления товара:', error));
-    }
-
-    function loadProducts() {
-        fetch('backend.php?type=products')
-            .then(response => response.json())
-            .then(products => {
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = '';
-
-                if (products.length === 0) {
-                    productList.innerHTML = '<p>Нет добавленных товаров.</p>';
-                    return;
-                }
-
-                products.forEach(product => {
-                    const productItem = document.createElement('div');
-                    productItem.classList.add('item');
-                    productItem.innerHTML = `
-                        <p><strong>${product.name}</strong> (${product.manufacturer}) - ${product.price} руб.</p>
-                        <button class="delete-btn" onclick="deleteProduct(${product.id})">Удалить</button>
-                    `;
-                    productList.appendChild(productItem);
-                });
-            })
-            .catch(error => console.error('Ошибка загрузки товаров:', error));
-    }
-
-    function deleteProduct(id) {
-        fetch(`backend.php?type=delete&id=${id}`, { method: 'GET' })
-            .then(response => response.json())
-            .then(result => {
-                alert(result.success || result.error);
-                loadProducts();
-            })
-            .catch(error => console.error('Ошибка удаления товара:', error));
-    }
-
-    function loadNotifications() {
-        fetch('backend.php?type=notifications')
-            .then(response => response.json())
-            .then(data => {
-                const notificationContainer = document.getElementById('notifications');
-                notificationContainer.innerHTML = '';
-
-                if (data.length === 0) {
-                    notificationContainer.innerHTML = '<p>Нет новых уведомлений.</p>';
-                    return;
-                }
-
-                data.forEach(notif => {
-                    const notifItem = document.createElement('div');
-                    notifItem.classList.add('item');
-                    notifItem.innerHTML = `<p><strong>${notif.date}</strong>: ${notif.text}</p>`;
-                    notificationContainer.appendChild(notifItem);
-                });
-            })
-            .catch(error => console.error('Ошибка загрузки уведомлений:', error));
-    }
-
-    function loadOrders() {
-        fetch('backend.php?type=orders')
-            .then(response => response.json())
-            .then(data => {
-                const ordersContainer = document.getElementById('orders');
-                ordersContainer.innerHTML = '';
-
-                if (data.length === 0) {
-                    ordersContainer.innerHTML = '<p>Нет новых заказов.</p>';
-                    return;
-                }
-
-                data.forEach(order => {
-                    const orderItem = document.createElement('div');
-                    orderItem.classList.add('item');
-                    orderItem.innerHTML = `<p><strong>Заказ №${order.id}</strong> от ${order.date}: ${order.details}</p>`;
-                    ordersContainer.appendChild(orderItem);
-                });
-            })
-            .catch(error => console.error('Ошибка загрузки заказов:', error));
-    }
-
-    loadProducts();
-    loadNotifications();
-    loadOrders();
-</script>
+    </script>
+    
 
 <footer>
     <p>&copy; 2025 ЛидерТрейд. Все права защищены.</p>
