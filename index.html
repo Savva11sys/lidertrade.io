@@ -712,27 +712,26 @@
 </script>
 
 <script>
-    function loadDayProduct() {
-        const product = JSON.parse(localStorage.getItem("dayProduct"));
-        if (!product) return;
+    
+function loadDayProduct() {
+    fetch("backend.php?type=getDayProduct")
+        .then(res => res.json())
+        .then(product => {
+            if (!product) return;
+            document.getElementById("day-product-image").src = product.image;
+            document.getElementById("day-product-title").textContent = product.title;
+            document.getElementById("day-product-description").textContent = product.description;
+            document.getElementById("day-product-price").textContent = "Цена: " + product.price + " руб/м²";
 
-        document.getElementById("day-product-image").src = product.image;
-        document.getElementById("day-product-title").textContent = product.title;
-        document.getElementById("day-product-description").textContent = product.description;
-        document.getElementById("day-product-price").textContent = "Цена: " + product.price + " руб/м²";
-    }
+            // Сохраняем локально для добавления в корзину
+            localStorage.setItem("dayProduct", JSON.stringify(product));
+        })
+        .catch(err => {
+            console.error("Ошибка загрузки товара дня:", err);
+        });
+}
 
-    function addDayProductToCart() {
-        const product = JSON.parse(localStorage.getItem("dayProduct"));
-        if (!product) return;
 
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        openModal(product.title);
-    }
-
-    document.addEventListener("DOMContentLoaded", loadDayProduct);
 </script>
 
 
