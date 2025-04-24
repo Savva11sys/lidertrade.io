@@ -301,7 +301,27 @@
         form.style.display = (form.style.display === "block") ? "none" : "block";
     }
     </script>
-    
+
+
+    <script>
+function toggleForm(id) {
+    const form = document.getElementById(id);
+    const isVisible = form.style.display === "block";
+    form.style.display = isVisible ? "none" : "block";
+
+    if (id === "day-product-form" && !isVisible) {
+        // Подставим текущие данные из localStorage
+        const dayProduct = JSON.parse(localStorage.getItem("dayProduct"));
+        if (dayProduct) {
+            document.getElementById("day-title").value = dayProduct.title || "";
+            document.getElementById("day-description").value = dayProduct.description || "";
+            document.getElementById("day-price").value = dayProduct.price || "";
+            document.getElementById("day-image").value = dayProduct.image || "";
+        }
+    }
+}
+</script>
+
 
 <footer>
     <p>&copy; 2025 ЛидерТрейд. Все права защищены.</p>
