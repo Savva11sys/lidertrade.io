@@ -543,13 +543,17 @@
 
     <main>
 
-        <section class="product-of-the-day">
-            <h2>Товар дня</h2>
-            <img src="product.jpg" alt="Товар дня">
-            <p>Название товара</p>
-            <p><strong>Цена: 999 руб.</strong></p>
-            <a href="#" class="buy-button">Купить</a>
-        </section>
+        <div class="product-of-the-day">
+            <img src="product.jpg" alt="Товар дня" class="product-image">
+            <div class="product-details">
+                <h2>Товар дня</h2>
+                <p class="product-name">Сайдинг VOX</p>
+                <p class="product-description">Высококачественный сайдинг для наружной отделки.</p>
+                <p class="product-price">Цена: 450 руб/м²</p>
+                <button class="buy-button" onclick="openModal('Сайдинг VOX')">Добавить в корзину</button>
+            </div>
+        </div>
+        
 
        
         <section class="catalog" id="catalog">
@@ -667,6 +671,54 @@
     <a href="privacy.html" class="footer-link">Политика конфиденциальности</a>
     <a href="terms.html" class="footer-link">Условия использования</a>
 </footer>
+
+<div id="cart-modal" class="cart-modal">
+    <div class="cart-modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <p id="cart-message"></p>
+    </div>
+</div>
+
+<script>
+    function openModal(productName) {
+        document.getElementById("cart-message").textContent = productName + " добавлен в корзину!";
+        document.getElementById("cart-modal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("cart-modal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("cart-modal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<!-- Модальное окно -->
+<div id="modal" style="display: none; position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%);
+                       background: white; border: 2px solid #4CAF50; padding: 20px; z-index: 9999; border-radius: 10px;
+                       box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+    <p id="modal-text"></p>
+    <button onclick="closeModal()" style="margin-top: 10px; background: #4CAF50; color: white;
+                                          border: none; padding: 10px 20px; border-radius: 5px;">OK</button>
+</div>
+
+<script>
+    function openModal(productName) {
+        const modal = document.getElementById("modal");
+        const text = document.getElementById("modal-text");
+        text.textContent = productName + " добавлен в корзину!";
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+</script>
+
+
 
 </body>
 </html>
