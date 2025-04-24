@@ -157,12 +157,34 @@
     </section>
 
     <section class="login-form">
-        <form action="backend.php" method="POST">
-            <input type="hidden" name="action" value="login">
-            <input type="text" name="login" placeholder="Логин" required>
-            <input type="password" name="password" placeholder="Пароль" required>
-            <button type="submit">Войти</button>
-        </form>
+        <section class="login-form">
+            <div>
+                <input type="text" id="login" placeholder="Логин" required>
+                <input type="password" id="password" placeholder="Пароль" required>
+                <button onclick="login()">Войти</button>
+                <p id="error" style="color: red; margin-top: 10px;"></p>
+            </div>
+        </section>
+        
+        <script>
+        function login() {
+            const login = document.getElementById('login').value;
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error');
+        
+            const correctLogin = "adm";
+            const correctPassword = "Gxzw!D!6K^KU!k!j#";
+            
+            if (login === correctLogin && password === correctPassword) {
+                window.location.href = "admin.html"; // Переход на admin.html
+            } else {
+                error.textContent = "Неверный логин или пароль";
+            }
+            
+
+        }
+        </script>
+        
         
     </section>
 </main>
