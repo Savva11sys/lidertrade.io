@@ -157,7 +157,7 @@
           <option value="Под Мужскую ЕЛЬ">Под брус</option>
           <option value="Под Мужскую ЕЛЬ">Под бревно</option>
           <option value="Под Мужскую ЕЛЬ">Под кирпич</option>
-          
+          <option value="Под Мужскую ЕЛЬ">Под мужскую ель</option>
              
         </select>
       </div>
@@ -174,7 +174,7 @@
         <label for="manufacturer">Производитель</label>
         <select id="manufacturer">
           <option value="">Все</option>
-          <option value="Ю-пласт">Ю-пласт</option>
+          <option value="Doke">Doke</option>
           <option value="ELLKA">ELLKA</option>
         </select>
       </div>
@@ -183,7 +183,7 @@
         <select id="sort">
           <option value="">По популярности</option>
           <option value="price">По цене</option>
-     
+          <option value="">По брутальности ЕЛИ</option>
         </select>
       </div>
       <div class="filter-group">
@@ -215,18 +215,84 @@
 
   <script>
     const products = [
-       
-       {
-        title: "Сайдинг Ellka Графит",
-        description: "Сайдинг-панель, Графит 0,615 м², 18 шт./уп., 3 м",
-        price: 316 ,
-        color: "Графит",
-        texture: "Под дерево",
-        category: "Мужская ЕЛЬ",
+           {
+        title: "Сайдинг Ellka Серый",
+        description: "Серый ,под мужскую ЕЛЬ ",
+        price: 255 ,
+        color: "Серый",
+        texture: "Под Мужскую ЕЛЬ",
+        category: "Сайдинг",
         manufacturer: "ELLKA",
-        image: "images/photo_5213472737337670365_y.jpg
+        image: "images/photo_5208802329770454586_y.jpg"
       },
-     
+      {
+        title: "Сайдинг Doke",
+        description: "Белый, под дерево",
+        price: 1990,
+        color: "Белый",
+        texture: "Под дерево",
+        category: "Сайдинг",
+        manufacturer: "Doke",
+        image: "images/product-placeholder.jpg"
+      },
+      {
+        title: "Фасадные панели ELLKA",
+        description: "Коричневый, под камень",
+        price: 2390,
+        color: "Коричневый",
+        texture: "Под камень",
+        category: "Фасадные панели",
+        manufacturer: "ELLKA",
+        image: "images/product-placeholder.jpg"
+      },
+      {
+        title: "Сайдинг ELLKA Lux",
+        description: "Белый, под камень",
+        price: 2190,
+        color: "Белый",
+        texture: "Под камень",
+        category: "Сайдинг",
+        manufacturer: "ELLKA",
+        image: "images/product-placeholder.jpg"
+      },
+      {
+        title: "Панели Doke WoodStyle",
+        description: "Коричневый, под дерево",
+        price: 1790,
+        color: "Коричневый",
+        texture: "Под дерево",
+        category: "Фасадные панели",
+        manufacturer: "Doke",
+        image: "images/product-placeholder.jpg"
+      },
+         {
+        title: "Панели Doke WoodStyle",
+        description: "Коричневый, под дерево",
+        price: 1790,
+        color: "Коричневый",
+        texture: "Под дерево",
+        category: "Фасадные панели",
+        manufacturer: "Doke",
+        image: "images/product-placeholder.jpg"
+      },{
+        title: "Панели Doke WoodStyle",
+        description: "Коричневый, под дерево",
+        price: 1790,
+        color: "Коричневый",
+        texture: "Под дерево",
+        category: "Фасадные панели",
+        manufacturer: "Doke",
+        image: "images/product-placeholder.jpg"
+      },{
+        title: "Панели Doke WoodStyle",
+        description: "Коричневый, под дерево",
+        price: 1790,
+        color: "Коричневый",
+        texture: "Под дерево",
+        category: "Фасадные панели",
+        manufacturer: "Doke",
+        image: "images/product-placeholder.jpg"
+      }
     ];
 
     const catalog = document.getElementById("productCatalog");
@@ -303,4 +369,5 @@
   </script>
 </body>
 </html>
+
 
