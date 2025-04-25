@@ -128,7 +128,23 @@
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="contacts.html">Контакты</a></li>
                 <li><a href="login.html">Войти</a></li>
-                <li><a href="cart.html">Корзина</a></li>
+                <li style="position: relative;">
+                  <a href="cart.html" id="cart-link">
+                    Корзина
+                    <span id="cart-count" style="
+                      position: absolute;
+                      top: -10px;
+                      right: -15px;
+                      background: #4CAF50;
+                      color: white;
+                      font-size: 12px;
+                      padding: 4px 7px;
+                      border-radius: 50%;
+                      display: none;
+                    ">0</span>
+                  </a>
+                </li>
+                
             </ul>
     </nav>
   </header>
@@ -415,8 +431,11 @@
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.push(p);
   localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount(); // Обновляем счётчик
   alert("Товар добавлен в корзину!");
 });
+
+
 
         catalog.appendChild(card);
       });
@@ -462,6 +481,23 @@
 
 
   </script>
+
+<script>
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const count = cart.length;
+    const badge = document.getElementById("cart-count");
+  
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = "inline-block";
+    } else {
+      badge.style.display = "none";
+    }
+  }
+  </script>
+  
+
 </body>
 </html>
 
