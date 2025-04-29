@@ -128,20 +128,19 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-top: 10px;
-  justify-content: center;
 }
 
 .qty-btn {
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
   background-color: #1B5E20;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s;
+  line-height: 1;
 }
 
 .qty-btn:hover {
@@ -149,12 +148,13 @@
 }
 
 .qty-value {
-  width: 40px;
+  width: 28px;
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   color: black;
 }
+
 
   </style>
 </head>
@@ -560,7 +560,9 @@
     const modal = document.getElementById("modal");
 
     function renderProducts(list) {
+  const catalog = document.getElementById("productCatalog");
   catalog.innerHTML = "";
+
   if (list.length === 0) {
     catalog.innerHTML = "<p>Ничего не найдено 😔</p>";
     return;
@@ -579,6 +581,19 @@
         <p class="product-price">Цена: <span>${p.price} ₽</span></p>
       </div>
     `;
+
+    // Увеличение изображения по клику
+    const img = card.querySelector(".product-image");
+    img.addEventListener("click", () => {
+      img.classList.toggle("enlarged");
+    });
+
+    // ==== ОБЁРТКА ДЛЯ СЧЁТЧИКА И КНОПКИ ====
+    const controlWrapper = document.createElement("div");
+    controlWrapper.style.display = "flex";
+    controlWrapper.style.alignItems = "center";
+    controlWrapper.style.gap = "10px";
+    controlWrapper.style.marginTop = "10px";
 
     // ==== СЧЁТЧИК ====
     const qtySelector = document.createElement("div");
@@ -610,12 +625,9 @@
       qtyValue.textContent = current + 1;
     });
 
-    card.querySelector(".product-price").appendChild(qtySelector);
-
     // ==== КНОПКА ====
     const addButton = document.createElement("button");
     addButton.className = "add-to-cart";
-    card.querySelector(".product-price").appendChild(addButton);
 
     const alreadyInCart = cart.some(item => item.title === p.title);
 
@@ -636,9 +648,15 @@
       });
     }
 
+    // ==== СОБИРАЕМ ====
+    controlWrapper.appendChild(qtySelector);
+    controlWrapper.appendChild(addButton);
+    card.querySelector(".product-price").appendChild(controlWrapper);
+
     catalog.appendChild(card);
   });
 }
+
 
 
     document.getElementById("filterForm").addEventListener("submit", function(e) {
@@ -710,3 +728,4 @@
 
 </body>
 </html>
+
