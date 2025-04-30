@@ -563,7 +563,7 @@
         <div class="product-of-the-day">
             <img src="product.jpg" alt="Товар дня" class="product-image">
             <div class="product-details">
-                <h2>Товар недели</h2>
+                <h2>Товар дня</h2>
                 <p class="product-name">Сайдинг VOX</p>
                 <p class="product-description">Высококачественный сайдинг для наружной отделки.</p>
                 <p class="product-price">Цена: 450 руб/м²</p>
@@ -696,24 +696,44 @@
     </div>
 </div>
 
-<script>
+
     
+    <script>
 function openModal(productName) {
     const product = {
         title: "Сайдинг VOX",
         description: "Высококачественный сайдинг для наружной отделки.",
         price: 450,
-        image: "images/siding-product.jpg"
+        image: "images/siding-product.jpg",
+        quantity: 1
     };
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(product);
+
+    // Проверка, есть ли товар уже в корзине
+    const existingItem = cart.find(item => item.title === product.title);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push(product);
+    }
+
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    updateCartCount();         // обновление счётчика
-    location.reload();         // перезагрузка страницы
+    updateCartCount();
+
+    // Показываем модальное окно с сообщением
+    const modal = document.getElementById("cart-modal");
+    const message = document.getElementById("cart-message");
+    message.textContent = `${product.title} добавлен в корзину!`;
+    modal.style.display = "block";
+
+    setTimeout(() => {
+        modal.style.display = "none";
+    }, 1500);
 }
 </script>
+
 
 
 
