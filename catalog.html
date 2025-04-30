@@ -749,10 +749,14 @@
       addButton.textContent = "В корзину";
       addButton.addEventListener("click", () => {
         const qty = parseInt(qtyValue.textContent);
-        for (let i = 0; i < qty; i++) {
-          cart.push(p);
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
+        const existing = cart.find(item => item.title === p.title);
+if (existing) {
+  existing.quantity += qty;
+} else {
+  cart.push({ ...p, quantity: qty });
+}
+
+localStorage.setItem("cart", JSON.stringify(cart));
         updateCartCount();
         addButton.textContent = "В корзине";
         addButton.disabled = true;
