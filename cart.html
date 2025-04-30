@@ -396,6 +396,38 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  line-height: 1;
+}
+
+.qty-btn:hover {
+  background-color: #388E3C;
+}
+
+.qty-value {
+  width: 28px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+
     </style>
 </head>
 <body>
@@ -548,7 +580,32 @@
         let total = 0;
     
         cart.forEach((item, index) => {
-            total += item.price;
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "cart-item";
+    itemDiv.innerHTML = `
+        <div class="cart-item-content">
+            <img src="${item.image}" alt="${item.title}">
+            <div class="cart-details">
+                <h2>${item.title}</h2>
+                <p>${item.description}</p>
+                <p><strong>Цена за штуку: ${item.price} ₽</strong></p>
+                <div class="quantity-selector" data-title="${item.title}">
+  <button class="qty-btn minus">−</button>
+  <span class="qty-value">${item.quantity}</span>
+  <button class="qty-btn plus">+</button>
+</div>
+
+                <p>Сумма: ${itemTotal} ₽</p>
+                <button class="btn-remove" data-index="${index}">Удалить</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(itemDiv);
+});
+
     
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
@@ -571,13 +628,44 @@
         // Удаление товара
         document.querySelectorAll(".btn-remove").forEach(button => {
             button.addEventListener("click", () => {
-                const index = button.getAttribute("data-index");
-                cart.splice(index, 1);
+                const title = button.closest(".cart-item").querySelector("h2").textContent;
+const newCart = cart.filter(item => item.title !== title);
+localStorage.setItem("cart", JSON.stringify(newCart));
+location.reload();
+
                 localStorage.setItem("cart", JSON.stringify(cart));
                 location.reload();
             });
         });
-    });
+        document.querySelectorAll(".quantity-selector").forEach(selector => {
+  const minus = selector.querySelector(".minus");
+  const plus = selector.querySelector(".plus");
+  const value = selector.querySelector(".qty-value");
+  const title = selector.dataset.title;
+
+  minus.addEventListener("click", () => {
+    let qty = parseInt(value.textContent);
+    if (qty > 1) {
+      updateQuantity(title, qty - 1);
+    }
+  });
+
+  plus.addEventListener("click", () => {
+    let qty = parseInt(value.textContent);
+    updateQuantity(title, qty + 1);
+  });
+});
+
+function updateQuantity(title, newQty) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const item = cart.find(i => i.title === title);
+  if (item) {
+    item.quantity = newQty;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+  }
+}
+
     </script>
     
     <script>
