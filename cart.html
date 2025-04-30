@@ -564,7 +564,7 @@
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const container = document.querySelector(".cart-items");
         const summary = document.querySelector(".total-price");
     
@@ -580,32 +580,8 @@
         let total = 0;
     
         cart.forEach((item, index) => {
-    const itemTotal = item.price * item.quantity;
-    total += itemTotal;
-
-    const itemDiv = document.createElement("div");
-    itemDiv.className = "cart-item";
-    itemDiv.innerHTML = `
-        <div class="cart-item-content">
-            <img src="${item.image}" alt="${item.title}">
-            <div class="cart-details">
-                <h2>${item.title}</h2>
-                <p>${item.description}</p>
-                <p><strong>Цена за штуку: ${item.price} ₽</strong></p>
-                <div class="quantity-selector" data-title="${item.title}">
-  <button class="qty-btn minus">−</button>
-  <span class="qty-value">${item.quantity}</span>
-  <button class="qty-btn plus">+</button>
-</div>
-
-                <p>Сумма: ${itemTotal} ₽</p>
-                <button class="btn-remove" data-index="${index}">Удалить</button>
-            </div>
-        </div>
-    `;
-    container.appendChild(itemDiv);
-});
-
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
     
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
@@ -615,7 +591,13 @@
                     <div class="cart-details">
                         <h2>${item.title}</h2>
                         <p>${item.description}</p>
-                        <p><strong>${item.price} ₽</strong></p>
+                        <p><strong>Цена за штуку: ${item.price} ₽</strong></p>
+                        <div class="quantity-selector" data-title="${item.title}">
+                            <button class="qty-btn minus">−</button>
+                            <span class="qty-value">${item.quantity}</span>
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <p>Сумма: ${itemTotal} ₽</p>
                         <button class="btn-remove" data-index="${index}">Удалить</button>
                     </div>
                 </div>
@@ -629,43 +611,43 @@
         document.querySelectorAll(".btn-remove").forEach(button => {
             button.addEventListener("click", () => {
                 const title = button.closest(".cart-item").querySelector("h2").textContent;
-const newCart = cart.filter(item => item.title !== title);
-localStorage.setItem("cart", JSON.stringify(newCart));
-location.reload();
-
-                localStorage.setItem("cart", JSON.stringify(cart));
+                const updatedCart = cart.filter(item => item.title !== title);
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
                 location.reload();
             });
         });
+    
+        // Обработка изменения количества
         document.querySelectorAll(".quantity-selector").forEach(selector => {
-  const minus = selector.querySelector(".minus");
-  const plus = selector.querySelector(".plus");
-  const value = selector.querySelector(".qty-value");
-  const title = selector.dataset.title;
-
-  minus.addEventListener("click", () => {
-    let qty = parseInt(value.textContent);
-    if (qty > 1) {
-      updateQuantity(title, qty - 1);
-    }
-  });
-
-  plus.addEventListener("click", () => {
-    let qty = parseInt(value.textContent);
-    updateQuantity(title, qty + 1);
-  });
-});
-
-function updateQuantity(title, newQty) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const item = cart.find(i => i.title === title);
-  if (item) {
-    item.quantity = newQty;
-    localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
-  }
-}
-
+            const minus = selector.querySelector(".minus");
+            const plus = selector.querySelector(".plus");
+            const value = selector.querySelector(".qty-value");
+            const title = selector.dataset.title;
+    
+            minus.addEventListener("click", () => {
+                let qty = parseInt(value.textContent);
+                if (qty > 1) {
+                    updateQuantity(title, qty - 1);
+                }
+            });
+    
+            plus.addEventListener("click", () => {
+                let qty = parseInt(value.textContent);
+                updateQuantity(title, qty + 1);
+            });
+        });
+    
+        function updateQuantity(title, newQty) {
+            const updatedCart = cart.map(item => {
+                if (item.title === title) {
+                    return { ...item, quantity: newQty };
+                }
+                return item;
+            });
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            location.reload();
+        }
+    });
     </script>
     
     <script>
@@ -704,7 +686,7 @@ function updateQuantity(title, newQty) {
             `;
         
             const botToken = "8022781969:AAEuIYt1zWuVZ9OzdqyOJYjiSiU93UXPSm8"; // 🔁 замени на свой
-            const chatId = "582177712"; // 🔁 замени на свой
+            const chatId = "1344723074"; // 🔁 замени на свой
         
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: "POST",
