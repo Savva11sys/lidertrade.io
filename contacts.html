@@ -379,72 +379,42 @@
 }
 
 /* 📱 Мобильные устройства до 600px */
-@media (max-width: 768px) {
-   header { flex-direction: column; gap: 20px; padding: 20px; }
-
-    header .logo img {
-        height: 50px;
+ @media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
-
-    nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        padding: 0;
-        margin-top: 15px;
+    nav {
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 10px;
     }
-
-    nav li {
-        display: inline-block;
+    .search-bar {
+        flex-direction: column;
     }
-
-    nav a {
-        font-size: 16px;
-        padding: 6px 12px;
-        display: inline-block;
-    }
-
-    .hero-section {
-        padding: 20px;
-    }
-
-    .hero-section h1 {
-        font-size: 24px;
-    }
-
-    .hero-section p {
-        font-size: 16px;
-    }
-
-    .login-form form {
-        padding: 20px;
-        width: 90%;
-        max-width: 350px;
-    }
-
-    .login-form input {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .login-form button {
-        font-size: 16px;
-        padding: 12px;
-    }
-
-    footer {
-        padding: 15px;
-        font-size: 14px;
-    }
-
-    .footer-link {
-        font-size: 14px;
-        display: inline-block;
-        margin: 5px 8px;
+    .search-bar input, .search-bar button {
+        width: 100%;
+        margin-top: 5px;
     }
 }
-
+        #cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #4CAF50;
+    color: white;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    line-height: 1;
+}
 
 
 
