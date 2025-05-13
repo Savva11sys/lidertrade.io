@@ -419,7 +419,29 @@
     }
 }
 
+/* Правильное поведение меню на всех экранах */
+nav ul {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
 
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 16px;
+    white-space: nowrap;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
 
 
     </style>
@@ -437,7 +459,8 @@
         <ul>
             <li><a href="catalog.html">Каталог</a></li>
             <li><a href="cart.html">Корзина</a></li>
-             <li><a href="login.html">Войти</a></li> <!-- Добавлен пункт "Войти" -->
+             <li><a href="login.html">Войти</a></li>
+             <li><a href="login.html">Войти</a></li><!-- Добавлен пункт "Войти" -->
         </ul>
     </nav>
 </header>
