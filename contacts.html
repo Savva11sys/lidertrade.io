@@ -380,19 +380,14 @@
 
 /* 📱 Мобильные устройства до 600px */
  @media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
     nav ul {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row !important;
         justify-content: center;
+        flex-wrap: nowrap; /* ❗️Чтобы не переносились */
         gap: 10px;
         padding: 0;
-        margin-top: 10px;
+        margin: 0;
     }
 
     nav li {
@@ -400,25 +395,15 @@
     }
 
     nav a {
-        font-size: 16px;
-        padding: 6px 10px;
+        font-size: 14px;
+        padding: 6px 8px;
         white-space: nowrap;
-    }
-
-    .search-container {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .search-container input,
-    .search-container button {
-        width: 90%;
-        margin-top: 5px;
     }
 }
 
+
+
+         
 /* Правильное поведение меню на всех экранах */
 nav ul {
     display: flex !important;
@@ -457,9 +442,11 @@ nav a {
 
     <nav>
         <ul>
+          
+
             <li><a href="catalog.html">Каталог</a></li>
             <li><a href="cart.html">Корзина</a></li>
-             <li><a href="login.html">Войти</a></li>
+             
              <li><a href="login.html">Войти</a></li><!-- Добавлен пункт "Войти" -->
         </ul>
     </nav>
