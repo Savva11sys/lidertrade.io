@@ -319,11 +319,12 @@
             margin: 5px 0;
         }
 
-        @media (max-width: 600px) {
-     header { flex-direction: column; gap: 20px; padding: 20px; }
-      .catalog { grid-template-columns: 1fr; margin-left: 0; }
-      main { flex-direction: column; padding: 10px; }
-      .filters { width: 100%; margin-bottom: 20px; }
+        /* Медиазапросы для планшетов */
+     @media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     nav ul {
@@ -345,7 +346,6 @@
         margin-top: 5px;
     }
 }
-
 
 
     </style>
@@ -507,4 +507,3 @@ document.addEventListener('DOMContentLoaded', function() {
      
 </body>
 </html>
-
