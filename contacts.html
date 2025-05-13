@@ -31,6 +31,7 @@
 
         header {
             display: flex;
+             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             background-color: white;
@@ -369,6 +370,30 @@
         input, textarea, button {
             min-height: 44px;
         }
+         @media (max-width: 600px) {
+    .contact-section {
+        padding: 15px;
+    }
+
+    .contact-section h1 {
+        font-size: 24px;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .map-section {
+        padding: 15px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -506,7 +531,26 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let viewport = document.querySelector('meta[name="viewport"]');
+    
+    function preventZoom() {
+        viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+    }
 
+    function allowZoom() {
+        viewport.content = "width=device-width, initial-scale=1.0";
+    }
+
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('focus', preventZoom);
+        el.addEventListener('blur', allowZoom);
+    });
+});
+</script>
+
+     
 </body>
 </html>
 
