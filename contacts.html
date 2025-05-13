@@ -404,40 +404,77 @@
 }
 
 /* 📱 Мобильные устройства до 600px */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     header {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 20px;
+    }
+
+    header .logo img {
+        height: 50px;
     }
 
     nav ul {
         display: flex;
-        flex-wrap: wrap; /* ✅ позволяет оставаться в строку с переносом */
+        flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 15px;
         padding: 0;
-        margin-top: 10px;
+        margin-top: 15px;
+    }
+
+    nav li {
+        display: inline-block;
     }
 
     nav a {
         font-size: 16px;
-        padding: 5px 10px;
+        padding: 6px 12px;
+        display: inline-block;
     }
 
-    .search-container {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-        align-items: center;
+    .hero-section {
+        padding: 20px;
     }
 
-    .search-container input,
-    .search-container button {
+    .hero-section h1 {
+        font-size: 24px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    .login-form form {
+        padding: 20px;
         width: 90%;
-        margin-top: 5px;
+        max-width: 350px;
+    }
+
+    .login-form input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .login-form button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    footer {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .footer-link {
+        font-size: 14px;
+        display: inline-block;
+        margin: 5px 8px;
     }
 }
+
 
 
 
