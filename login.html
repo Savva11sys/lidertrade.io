@@ -128,32 +128,77 @@
         .footer-link:hover {
             color: #A5D6A7;
         }
-       @media (max-width: 600px) {
+      @media (max-width: 768px) {
     header {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 20px;
+    }
+
+    header .logo img {
+        height: 50px;
     }
 
     nav ul {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 0;
+        margin-top: 15px;
     }
 
-    .search-container {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-        align-items: center;
+    nav li {
+        display: inline-block;
     }
 
-    .search-container input,
-    .search-container button {
+    nav a {
+        font-size: 16px;
+        padding: 6px 12px;
+        display: inline-block;
+    }
+
+    .hero-section {
+        padding: 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 24px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    .login-form form {
+        padding: 20px;
         width: 90%;
-        margin-top: 5px;
+        max-width: 350px;
+    }
+
+    .login-form input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .login-form button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    footer {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .footer-link {
+        font-size: 14px;
+        display: inline-block;
+        margin: 5px 8px;
     }
 }
+
 
 
     </style>
