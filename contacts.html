@@ -406,42 +406,36 @@
 /* 📱 Мобильные устройства до 600px */
 @media (max-width: 600px) {
     header {
-        padding: 15px;
-    }
-
-    .logo img {
-        height: 40px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     nav ul {
+        display: flex;
+        flex-wrap: wrap; /* ✅ позволяет оставаться в строку с переносом */
+        justify-content: center;
         gap: 10px;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 5px 10px;
     }
 
     .search-container {
         flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
         align-items: center;
     }
 
     .search-container input,
     .search-container button {
         width: 90%;
-        margin-top: 8px;
-    }
-
-    .contact-section h1,
-    .contact-form h2,
-    .contact-info h2 {
-        font-size: 20px;
-        text-align: center;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        font-size: 14px;
-    }
-
-    footer .footer-link {
-        font-size: 14px;
+        margin-top: 5px;
     }
 }
 
