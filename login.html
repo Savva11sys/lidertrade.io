@@ -128,21 +128,15 @@
         .footer-link:hover {
             color: #A5D6A7;
         }
-      @media (max-width: 768px) {
-    header { flex-direction: column; gap: 20px; padding: 20px; }
-    }
-
-    header .logo img {
-        height: 50px;
-    }
-
+      @media (max-width: 600px) {
     nav ul {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row !important;
         justify-content: center;
-        gap: 15px;
+        flex-wrap: nowrap; /* ❗️Чтобы не переносились */
+        gap: 10px;
         padding: 0;
-        margin-top: 15px;
+        margin: 0;
     }
 
     nav li {
@@ -150,49 +144,37 @@
     }
 
     nav a {
-        font-size: 16px;
-        padding: 6px 12px;
-        display: inline-block;
-    }
-
-    .hero-section {
-        padding: 20px;
-    }
-
-    .hero-section h1 {
-        font-size: 24px;
-    }
-
-    .hero-section p {
-        font-size: 16px;
-    }
-
-    .login-form form {
-        padding: 20px;
-        width: 90%;
-        max-width: 350px;
-    }
-
-    .login-form input {
         font-size: 14px;
-        padding: 10px;
+        padding: 6px 8px;
+        white-space: nowrap;
     }
+}
 
-    .login-form button {
-        font-size: 16px;
-        padding: 12px;
-    }
 
-    footer {
-        padding: 15px;
-        font-size: 14px;
-    }
 
-    .footer-link {
-        font-size: 14px;
-        display: inline-block;
-        margin: 5px 8px;
-    }
+         
+/* Правильное поведение меню на всех экранах */
+nav ul {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 16px;
+    white-space: nowrap;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 
